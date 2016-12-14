@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>OSTC</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ app.request.basepath }}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ app.request.basepath }}/css/responsive-calendar.css"/>
+    <link rel="stylesheet" href="{{ app.request.basepath }}/css/style.css">
+    <link rel="stylesheet" href="{{ app.request.basepath }}/css/media.css">
+    
+    {% if events is defined %}
+		<script type="text/javascript">
+	        window.genericCalendar = {{ events|json_encode()|raw }};
+	    </script>
+	{% endif %}
+    
+    <script src="{{ app.request.basepath }}/js/jquery-1.11.3.min.js"></script>
+	<script src="{{ app.request.basepath }}/js/bootstrap.min.js"></script>
+	<script src="{{ app.request.basepath }}/js/carousel-swipe.js"></script>
+	<script src="{{ app.request.basepath }}/js/responsive-calendar.min.js"></script>
+	<script src="{{ app.request.basepath }}/js/script.js"></script>
+	<script src="{{ app.request.basepath }}/js/fb.js"></script>
+	<script src="{{ app.request.basepath }}/js/sendmail.js"></script>
+	<script type="text/javascript" src="http://vk.com/js/api/share.js?93" charset="windows-1251"></script>
+</head>
+
+<body>
+{% include stuff %}
+{% include header %}
+{% block content %}{% endblock %}
+{% include footer %}
+</body>
+
+</html>

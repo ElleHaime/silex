@@ -1,0 +1,54 @@
+{% extends wrapper %}
+
+{% block content %}
+  <div class="main-content">
+	
+    <div class="container index-content">
+        <article class="col-xs-12 col-sm-12 col-ml-12 cpl-lg-12">
+       		{% include navigation %}
+       		
+       		<div class="row">
+            	<a href="#" class="col-sm-12 col-lg-3"></a>
+            </div>
+            
+            <div class="row">
+		            
+                <div class="col-md-12" id="carousel-bounding-box">
+                    <div id="myCarousel" class="carousel slide index-slider gallery-slider" data-interval="100000">
+                        <!-- main slider carousel items -->
+                        <div class="carousel-inner">
+                        	{% for slide in event_media %}
+                        		{% if slide.media_type == 'image' %}
+		                            <div class="{% if loop.first %}active {% endif %}item" data-slide-number="{{ loop.index -1 }}">
+		                                <img src="/img/media/{{ media.id }}/photo/{{ slide.filename }}" class="img-responsive">
+		                            </div>
+		                        {% endif %}
+                            {% endfor %}
+                        </div>
+                        <!-- main slider carousel nav controls --> 
+                        <a class="carousel-control left" href="#myCarousel" data-slide="prev"></a>
+
+                        <a class="carousel-control right" href="#myCarousel" data-slide="next"></a>
+                    </div>
+                </div>
+	        </div>
+	        
+	        <!--/main slider carousel-->
+		    <!-- thumb navigation carousel -->
+		    <div class="row preview-list hidden-xs">
+					{% for slide in event_media %}
+						{% if slide.media_type == 'image' %}
+				          <div class="col-ms-4 col-md-4 col-lg-2"> 
+				          	<a id="carousel-selector-{{ loop.index -1 }}" class="selected">
+				            	<img src="/img/media/{{ media.id }}/photo/{{ slide.filename }}" class="img-responsive">
+				          	</a>
+				          </div>
+				        {% endif %}
+			    	{% endfor %} 
+	            </ul>
+		    </div>
+		 </article>
+    </div>
+</div>
+
+{% endblock %}		 

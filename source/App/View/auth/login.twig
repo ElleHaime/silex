@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>OSTC::Log in to protected area</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ app.request.basepath }}/css/bootstrap.min.css">
+    <script src="{{ app.request.basepath }}/js/jquery-1.11.3.min.js"></script>
+	<script src="{{ app.request.basepath }}/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">OSTC::Protected area</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+	</nav>
+	
+	<div class="container">
+        {% if app.session.flashbag.has('alert') %}
+            {% for flashMessage in app.session.flashbag.get('alert') %}
+                <div class="alert alert-info">{{ flashMessage }}</div>
+            {% endfor %}
+        {% endif %}
+
+        {% if app.user %}
+	        <p>Hello, {{ app.user.displayName }}.</p>
+	        <p><a href="{{ path('admin.logout') }}">Sign out</a></p>
+	
+	    {% else %}
+	        <h1>Sign in</h1>
+	
+	        <p class="text-muted lead">
+	            Not admin? <a href="/">Get out</a> and never come back again
+	        </p>
+	
+	        {% if last_error %}
+	            <div class="alert alert-danger">{{ last_error|nl2br }}</div>
+	        {% endif %}
+	
+	        <form class="form-horizontal" method="POST" action="{{ path('admin.login-check') }}">
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label" for="inputLogin">Login</label>
+	                <div class="col-sm-6">
+	                    <input class="form-control" name="_username" type="text" id="inputLogin" placeholder="Username" required value="{{ last_username }}">
+	                </div>
+	            </div>
+	
+	            <div class="form-group">
+	                <label class="col-sm-2 control-label" for="inputPassword">Password</label>
+	                <div class="col-sm-6">
+	                    <input class="form-control" name="_password" type="password" id="inputPassword" required placeholder="Password">
+	                </div>
+	            </div>
+	
+	            {% if allowRememberMe is defined %}
+	                <div class="form-group">
+	                    <div class="col-sm-6 col-sm-offset-2 checkbox">
+	                        <label>
+	                            <input type="checkbox" name="_remember_me" value="true" checked> Remember me on this computer
+	                        </label>
+	                    </div>
+	                </div>
+	            {% endif %}
+	
+	            <div class="form-group">
+	                <div class="col-sm-8 col-sm-offset-2">
+	                    <button type="submit" class="btn btn-primary">Sign in</button>
+	                    {% if allowPasswordReset is defined %}
+	                        <a style="margin-left: 10px;" href="{{ path('user.forgot-password') }}">Forgot your password?</a>
+	                    {% endif %}
+	                </div>
+	            </div>
+	
+	        </form>
+	
+	    {% endif %}
+    </div>
+	
+    <footer style="padding-top: 20px; padding-bottom: 20px; margin-top: 100px; color: #777; border-top: 1px solid #e5e5e5;">
+        <div class="container">
+            All rights Reserved OSTC blah-blah
+        </div>
+    </footer>
+</body>
+
+</html>

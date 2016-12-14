@@ -1,0 +1,174 @@
+{% extends wrapper %}
+
+{% block content %}
+  <div class="main-content">
+	
+    <div class="container index-content">
+    	{% set shareImage = '' %}
+        <article class="col-xs-12 col-sm-9 col-ml-9 cpl-lg-9">
+        	<div class="one-posts">
+        		{% if training_image is not empty %}
+        			{% for image in training_image %}
+        				{% if image.type == 'header_big' %}
+        					{% set shareImage = image.image %}
+                			<img src="/img/training/{{ training.url_name }}/{{ image.image }}" alt = '{{ training.name }}' class="posts-img">
+                		{% endif %}
+                	{% endfor %}
+                {% endif %}
+                
+        		{% include navigation %}
+			
+				<!-- div class="posts-data">1<sup>th</sup> SEPT</div -->
+                <div class="posts-text">
+                    <p>{{ training.description | raw }}</p>
+                    {% if training_image is not empty %}
+                    	<div class="row posts-images">
+	        				{% for image in training_image %}
+	        					{% if image.type != 'header_big' %}
+	        						<div class="col-sm-12 col-lg-4"><img src="/img/training/{{ training.url_name }}/{{ image.image }}" 
+	        								alt="{{ training.name }}"></div>
+	        						{% if shareImage is not defined %}
+	        							{% set shareImage = image.image %}
+	        						{% endif %}		
+		                		{% endif %}
+	    	            	{% endfor %}
+	    	            </div>
+        	        {% endif %}
+                </div>
+                <div class="posts-line"></div>
+                <div class="posts-share">
+	                <span>Share:</span>
+	                <a style="cursor:pointer;" class="share-facebook" 
+		                    	data-image-source="/img/training/{{ training.url_name }}/{{ shareImage }}"
+		                    	data-item-source="/training/{{ training.url_name }}"
+		                    	data-item-title="{{ training.name }}"
+		                    	onClick="shareFb(this)">
+	                </a>
+	                <a href="http://vk.com/share.php?url={{ settings.host_name }}/training/{{ training.url_name }}" target="_blank" class="share-twitter"></a>
+                </div>
+            </div>
+
+			{% if nearestEvent is not empty %}
+				<div class="contacts-info col-lg-12">			
+					<div class="row">
+	                    <div class="col-xs-12 col-md-12 col-lg-4">
+	                        <div class="contacts-gray">Ближайший тренинг:</div>
+	                        <div class="contacts-phone">{{ nearestEvent.start_date|date('d/m/Y') }}</div>
+	                    </div>
+	                    <div class="col-xs-12 col-md-12 col-lg-8 contacts-email-adress-block">
+	                        <div class="contacts-email-adress"><span class="contacts-gray">Место проведения: </span>
+	                        	{% if nearestEvent.location is not empty %}
+									{{ nearestEvent.location }}
+	                        	{% else %} 
+	                        		{{ contacts.location.address }}
+	                        	{% endif %}
+	                        </div>
+	                        <div class="contacts-email-adress"><span class="contacts-gray">Справки по телефону: </span> {{ contacts.phone.mobile }} </div>
+	                    </div>
+	                </div>
+				</div>	
+				
+	            <div class="sign-up-title">Записаться на тренинг</div>
+	            
+	            <div class="posts-text" style="font-size:90%; color:red; padding-bottom:15px;" id="user_message_send_error"></div>
+	            <div class="posts-text" style="color:green; padding-bottom:15px;" id="user_message_send_success"></div>
+	            
+				<form class="sign-up-form" target="_self" id="user_register_on_training" onsubmit="" action="javascript: postTrainingToGoogle();">
+	                <div class="row">
+	                    <div class="col-md-12">
+	                        <div class="row">
+	                            <div class="col-sm-12  col-md-3 form-text">ФИО<sup>*</sup></div>
+	                            <div class="col-sm-12 col-md-4">
+	                                <input type="text" class="form-control"
+	                                	name="user_register_name" 
+	                                	id="user_register_name" 
+	                                	data-required="1"
+	                                	data-guid="entry.648754540">
+	                            </div>
+	                        </div>
+	                        <div class="posts-line"></div>
+	                    </div>
+	                    <div class="col-md-12">
+	                        <div class="row">
+	                            <div class="col-sm-12 col-md-3 form-text">Номер телефона<sup>*</sup></div>
+	                            <div class="col-sm-12 col-md-4">
+	                                <input type="text" class="form-control"
+	                                	name="user_register_phone" 
+	                                	id="user_register_phone" 
+	                                	data-required="1"
+	                                	data-guid="entry.1220421101">
+	                            </div>
+	                        </div>
+	                        <div class="posts-line"></div>
+	                    </div>
+	                    <div class="col-md-12">
+	                        <div class="row">
+	                            <div class="col-sm-12 col-md-3 form-text">E-Mail<sup>*</sup></div>
+	                            <div class="col-sm-12 col-md-4">
+	                                <input type="text" class="form-control"
+	                                	name="user_register_email" 
+	                                	id="user_register_email" 
+	                                	data-required="1"
+	                                	data-guid="entry.721145479">
+	                            </div>
+	                        </div>
+	                        <div class="posts-line"></div>
+	                    </div>
+	                    <div class="col-md-12">
+	                        <div class="row">
+	                            <div class="col-sm-12 col-md-3">Откуда вы узнали о тренинге?<sup>*</sup></div>
+	                            <div class="col-sm-12 col-md-4">
+	                                <input type="text" class="form-control"
+	                                	name="user_register_tr_source" 
+	                                	id="user_register_tr_source" 
+	                                	data-required="1"
+	                                	data-guid="entry.761207426">
+	                            </div>
+	                        </div>
+	                        <div class="posts-line"></div>
+	                    </div>
+	                    <div class="col-md-12">
+	                        <div class="row">
+	                            <div class="col-md-12 form-text">
+	                                Ваш профиль в соц.сетях (мы поделимся с вами фотографиями с тренинга)
+	                            </div>
+	                            <div class="col-md-12">
+	                                <input type="text" class="form-control"
+	                                	name="user_register_social" 
+	                                	id="user_register_social" 
+	                                	data-guid="entry.1845990643">
+	                            </div>
+	                        </div>
+	                        <div class="posts-line"></div>
+	                    </div>
+	                    <div class="col-md-12">
+	                    	<!-- input type="checkbox" checked=true name="user_register_remember" 
+				                                	id="user_register_remember" 
+				                                	data-guid="entry.1899739514"
+				                                	data-guid-val="Напомнить мне о тренинге по sms"> Напомнить мне о тренинге по sms
+	                        <label for="c1"><span></span></label -->
+
+	                        <button class="send-buton">SEND</button>
+	                    </div>
+	                    <input type="hidden" name="user_regiter_training_name"
+	                    					 id="user_regiter_training_name"
+	                    					 data-guid="entry.1735579325" 
+	                    					 value="{{ training.name }}">
+	                    <input type="hidden" name="user_regiter_training_date"
+	                    					 id="user_regiter_training_date"
+	                    					 data-guid="entry.416890755" 
+	                    					 value="{{ nearestEvent.start_date|date('d/m/Y') }}">
+	                </div>
+	            </form>
+			{% endif %}
+			
+            <!-- img src="/img/vk_facebook.png" style="width: 100%;" -->
+				
+        </article>
+        
+		{% include sidepanel %}
+		
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends admin_wrapper  %}
+
+{% block content %}
+
+<div class="span9" id="content">
+    <div class="row-fluid">
+        <!-- block -->
+        <div class="block">
+            <div class="navbar navbar-inner block-header">
+                <div class="muted pull-left">Новости</div>
+            </div>
+            <div class="block-content collapse in">
+                <div class="span12">
+                    <form class="form-horizontal" method="post" name="formNewsPost" action={{ path('admin.news.edit', {'postId': post.id }) }} enctype="multipart/form-data">
+                      <fieldset>
+                        <legend>
+                        	{% if postId is defined %}
+                        		Редактирование
+                        	{% else %}
+                        		Новый пост
+                        	{% endif %}
+                        </legend>
+                        <div class="control-group {% if errors.title is defined %}error{% endif %}" id="group-title">
+                          <label class="control-label" for="title">Заголовок</label>
+                          <div class="controls">
+                            <input type="text" class="span6" id="title" name="formNewsPost[title]" value="{{ post.title }}" maxlength=255>
+                            {% if errors.title is defined %}
+                            	<span class="help-inline">{{ errors.title }}</span>
+                            {% endif %}
+                          </div>
+                        </div>
+                        
+                        <div class="control-group {% if errors.logo is defined %}error{% endif %}" id="group-logo">
+                          <label class="control-label" for="logo">Изображение</label>
+                          <div class="controls">
+                          	<label class="uniform">
+                            	<input class="input-file uniform_on" type="file" name="logo">
+                            	<span style="padding-left:20px; font-size:80%; color:grey;">Отресайзить картинку по ширине страницы (825 px) </span><input class="uniform_on" type="checkbox" id="news_post_resize_image" name="formNewsPost[resize_image]" value="1">
+                            	<p class="help-block" style="font-size:80%; color:grey;">Будет отображаться в списке новостей на главной</p>
+                            	{% if post.logo is not empty %}
+                            		<input type="hidden" id="news_post_logo" name="formNewsPost[logo]" value="{{ post.logo}}">
+                           			<img src="/img/news/{{ post.logo }}" width="30%;"><p><b>URL: </b> {{ app.request.getHost }}/img/news/{{ post.logo }}</p>
+                             	{% endif %}
+                            </label>
+                          </div>
+                        </div>
+                        <div class="control-group {% if errors.intro is defined %}error{% endif %}" id="group-intro">
+                          <label class="control-label" for="intro">Краткое описание<span style="color:red; padding-left:3px;">*</span></label>
+                          <div class="controls"> 
+                               	<textarea id="news_post_intro" name="formNewsPost[intro]" placeholder="Писать сюда" style="width:50%;height:80px;">{{ post.intro }}</textarea>
+                               	{% if errors.intro is defined %}
+                            		<span class="help-inline">{{ errors.intro }}</span>
+                            	{% endif %}
+                            	<p class="help-block" style="font-size:80%; color:grey;">Будет отображаться в списке новостей на главной</p>
+                          </div>
+                        </div>
+                        <div class="control-group {% if errors.body is defined %}error{% endif %}" id="group-body">
+                          <label class="control-label" for="intro">Полный текст</label>
+                          <div class="controls">
+                               	<textarea id="news_post_body" name="formNewsPost[body]" placeholder="Писать сюда" style="width:80%;height:200px;">{{ post.body }}</textarea>
+                               	{% if errors.body is defined %}
+                            		<span class="help-inline">{{ errors.body }}</span>
+                            	{% endif %}
+                          </div>
+                        </div>
+                        <div class="control-group" id="group-status">
+                          <label class="control-label" for="status">Опубликовать новость</label>
+                          <div class="controls">
+                            <label class="uniform">
+                              <input class="uniform_on" type="checkbox" id="news_post_status" name="formNewsPost[status]" value="1" {% if post.status == 1 %}checked{% endif %}>
+                            </label>
+                          </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                        	{% if post.id is defined %}
+								<input type="hidden" id="news_post_id" name="formNewsPost[id]" value="{{ post.id }}">
+							{% endif %}
+							<input type="hidden" id="news_post_date_posted" name="formNewsPost[date_posted]" value="{{ 'now'|date('Y-m-d h:i:s') }}">
+							<button type="submit" class="btn btn-primary">Сохранить</button>
+                          	<button type="reset" class="btn" id="cancel-to-list" data-url="{{ path('admin.news.list') }}">Отмена</button>
+                        </div>
+                      </fieldset>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <!-- /block -->
+    </div>
+</div>
+
+{% endblock %}

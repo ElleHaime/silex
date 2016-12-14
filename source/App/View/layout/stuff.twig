@@ -1,0 +1,8 @@
+<div id="fb-root"></div>
+{% if app.fbAppId is defined %}
+    <input id="fbAppId" type="hidden" value="{{ app.fbAppId }}" />
+{% endif %}
+
+{% if app.fbAppSecret is defined %}
+    <input id="fbAppSecret" type="hidden" value="{{ app.fbAppSecret }}" />
+{% endif %}

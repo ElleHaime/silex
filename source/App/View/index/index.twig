@@ -1,0 +1,77 @@
+{% extends wrapper %}
+
+{% block content %}
+  <div class="main-content">
+	
+    <div id="carousel-example-generic" class="carousel slide index-slider" data-interval="100000" data-ride="carousel" data-toughness="0.5">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+        	{% for slide in slider %}
+        		<li data-target="#carousel-example-generic" data-slide-to="{{ loop.index -1 }}" 
+        				{% if loop.first %}class="active"{% endif %}></li>	
+        	{% endfor %}
+        </ol>
+        
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+        	{% for slide in slider %}
+	        	<div class="item {% if loop.first %} active{% endif %}">
+	                <div class="img-block">
+	                    <img src="/img/slider/{{ slide.image }}" alt="{{ slide.alter_text }}">
+	                </div>
+	                <div class="slider-welcome">{{ slide.welcome_text }}</div>
+	                <div class="slider-text">{{ slide.center_text }}</div>
+	                <div class="slider-small-text">{{ slide.bottom_text }}</div>
+	            </div>
+        	{% endfor %}
+        </div>
+
+        <!-- Controls -->
+        <div class="slider-control">
+            <div class="container slide-control-container">
+                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev"></a>
+                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container index-content">
+        <article class="col-xs-12 col-sm-9 col-ml-9 cpl-lg-9">
+        	{% for post in news %}
+	            <div class="one-posts">
+	            	{% if post.logo is not empty %}
+	                	<img src="/img/{{ post.logo }}" class="posts-img">
+	                {% endif %}
+	                <div class="posts-data">{{ post.date_posted | date("d/m") }}</div>
+	                <div class="posts-title">{{ post.title }}</div>
+	                <div class="posts-line"></div>
+	                <div class="posts-text">
+	                	<p>{{ post.intro }}</p>
+	                    <a href="/news/{{ post.id }}" class="continue">read more »</a>
+	                </div>
+	                <div class="posts-line"></div>
+	                <div class="posts-share">
+	                    <span style="font-size:80%;">Share:</span>
+						<a style="cursor:pointer;" class="share-facebook" 
+	                    	data-image-source="/img/{{ post.logo }}"
+	                    	data-item-source="/news/{{ post.id }}"
+	                    	data-item-title="{{ post.title }}"
+	                    	onClick="shareFb(this)">
+	                    </a>
+	                    <a href="http://vk.com/share.php?url={{ settings.host_name }}/news/{{ post.id }}" target="_blank" class="share-twitter"></a>
+	                </div>
+	            </div>
+	        {% endfor %}
+            <div class="gray-links">
+                <a href="/news" class="all-posts">Все новости »</a>
+            </div>
+        </article>
+        
+		{% include sidepanel %}
+		
+    </div>
+
+	
+</div>
+
+{% endblock %}

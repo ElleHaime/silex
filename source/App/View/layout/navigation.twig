@@ -1,0 +1,14 @@
+<ul class="breadcrumbs">
+	{% set pageTitle = '' %}
+    <a href="/" class="bread-home"></a>
+    {% for path in settings.navigation %}
+    	{% if loop.last %}
+        	<li>{{ path.title }}</li>
+    		{% set pageTitle = path.title %}
+    	{% else %}
+    		<li><a href="{{ path.url }}">{{ path.title }}</a></li>
+    	{% endif %}
+    {% endfor %}
+</ul>
+<div class="posts-title">{{ pageTitle }}</div>
+<div class="posts-line"></div>

@@ -1,0 +1,83 @@
+{% extends wrapper %}
+
+{% block content %}
+  <div class="main-content">
+  	<div class="container index-content">
+        <article class="col-xs-12 col-ml-8 col-lg-8">
+        
+        	{% include navigation %}
+        	
+			<div class="contacts-info col-lg-12">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12 col-lg-4">
+                        <div class="contacts-gray">Позвоните нам:</div>
+                        <div class="contacts-phone">{{ contacts.phone.mobile }}</div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-12 col-lg-8 contacts-email-adress-block">
+                        <div class="contacts-email-adress"><span class="contacts-gray">Наш адрес: </span> {{ contacts.location.address }}</div>
+                        <div class="contacts-email-adress"><span class="contacts-gray">E-mail: </span> {{ contacts.email }} </div>
+                    </div>
+                </div>
+            	
+            </div>
+            
+            
+            <div class="posts-text" style="font-size:90%; color:red; padding-bottom:15px;" id="user_message_send_error"></div>
+            <div class="posts-text" style="color:green; padding-bottom:15px;" id="user_message_send_success"></div>
+            
+            <form class="mail-form" id="user_message" action="/contact/send" method="post">
+            	<div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-xs-12  col-md-2 form-text">Ваше имя:</div>
+                            <div class="col-xs-12 col-md-4">
+                                <input type="text" class="form-control" name="user_name" id="user_name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-2 form-text">E-Mail:</div>
+                            <div class="col-xs-12 col-md-4">
+                                <input type="text" class="form-control" name="user_email" id="user_email">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-2 form-text">Тема:</div>
+                            <div class="col-xs-12 col-md-4">
+                                <input type="text" class="form-control" name="user_subject" id="user_subject">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-2 form-text">Сообщение:</div>
+                            <div class="col-xs-12 col-md-10">
+                            	<textarea class="form-control" rows="5" name="user_body" id="user_body"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <button class="send-buton" id="user_send_message">SEND</button>
+                    </div>
+                </div>
+            </form>
+        	
+        </article>
+        
+        <aside class="col-xs-12 col-ml-4 col-lg-4">
+        	<div class="posts-title road-map">Карта проезда</div>
+            <div class="posts-line"></div>
+
+            <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="100%" height="500px" 
+            	src="https://maps.google.com/maps?hl=ru&q={{ contacts.location.coordinates }}&ie=UTF8&t=roadmap&z=13&iwloc=B&output=embed"><div><small><a href="http://embedgooglemaps.com">embedgooglemaps.com</a></small></div>
+            </iframe>
+
+        </aside>
+        
+	</div>
+  </div>
+{% endblock %}

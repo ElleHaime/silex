@@ -1,0 +1,30 @@
+<div class="span3" id="sidebar">
+    <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+        <li {% if settings.section == 'news'%}class="active"{% endif %}>
+            <a href="{{ path('admin.news.list') }}"><i class="icon-chevron-right"></i>Новости</a>
+        </li>
+        <li {% if settings.section == 'training' %}class="active"{% endif %}>
+            <a href="{{ path('admin.training.list') }}"><i class="icon-chevron-right"></i>Тренинги</a>
+        </li>
+        <li>
+            <a href="form.html"><i class="icon-chevron-right"></i>Календарь</a>
+        </li>
+        <li>
+            <a href="tables.html"><i class="icon-chevron-right"></i>Инструкторы</a>
+        </li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Медиа</a>
+          <ul class="dropdown-menu" style="margin:0px 0px 0px 70px;">
+            <li><a href="#">Слайдер</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Отчёты с тренингов</a></li>
+          </ul>
+        </li>
+        <li>
+            <a href="buttons.html"><i class="icon-chevron-right"></i>Контакты</a>
+        </li>
+        <li {% if settings.section == 'settings' %}class="active"{% endif %}>
+            <a href="buttons.html"><i class="icon-chevron-right"></i>Настройки</a>
+        </li>
+    </ul>
+</div>

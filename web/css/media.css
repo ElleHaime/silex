@@ -1,0 +1,145 @@
+@media (max-width: 1170px) { 
+	.footer-contacts span {
+		width: 100%;
+		display: inline-block;
+	}
+
+	.contacts-email-adress-block {
+		padding: 0 15px;
+		background: transparent;
+	}
+}
+
+@media (max-width: 992px) {
+	.navbar-nav>li>a {
+		padding: 10px 10px;
+	}
+
+	.index-slider .carousel-control.right::before, .index-slider .carousel-control.left::before,
+	.media-slider .carousel-control.left::before, .media-slider .carousel-control.right::before {
+		top: 10px;
+		left: 7px;
+	}
+
+	.index-slider .carousel-control.right, .index-slider .carousel-control.left, .media-slider .carousel-control.left, .media-slider .carousel-control.right {
+		width: 44px;
+		height: 44px;
+		margin-top: 18px;
+	}
+	
+	.media-slider-control {
+		font-size: 20px;
+	}
+}
+
+@media (max-width: 768px) {
+	.footer-logo {
+		margin: 0 auto;
+		display: block;
+	}
+
+	.footer-contacts {
+		text-align: center;
+	}
+
+	.footer-social {
+		padding: 20px 0;
+	}
+
+	.footer-content {
+		padding: 20px 0;
+	}
+
+	.footer-info-left, .footer-info-right {
+		width: 100%;
+		text-align: center;
+	}
+
+	.posts-data {
+		margin-bottom: 10px;
+	}
+
+	a.all-posts {
+		margin-bottom: 10px;
+	}
+
+	.index-slider .carousel-control.right::before, .index-slider .carousel-control.left::before,
+	.media-slider .carousel-control.left::before, .media-slider .carousel-control.right::before {
+		top: 10px;
+		left: 7px;
+	}
+
+	.index-slider .carousel-control.right, .index-slider .carousel-control.left, .media-slider .carousel-control.left, .media-slider .carousel-control.right {
+		width: 44px;
+		height: 44px;
+		margin-top: -8px;
+	}
+
+	.navbar-nav>li>a {
+		padding: 0 10px;
+	}
+
+	.slider-text {
+		font-size: 32px;
+		line-height: 32px;
+	}
+
+	.media-slider-control {
+		font-size: 16px;
+	}
+
+	.media-slider-control {
+		width: 100%;
+		margin-bottom: 30px;
+	}
+
+	.posts-title-media {
+		margin-top: 15px;
+	}
+
+	.media-slider-control span{
+		width: 50%;
+		margin: 0 auto;
+		display: block;
+	}
+
+	.media-slider-control {
+		padding-top: 20px;
+	}
+
+	.header-logo {
+		margin-left: 10px;
+	}
+
+	.carousel-indicators {
+		display: none;
+	}
+
+	.slider-control {
+		display: none;
+	}
+
+	.slider-small-text {
+		margin-bottom: -5%;
+	}
+
+	.gallery-slider .carousel-control{
+		display: none;
+	}
+
+	.gallery-slider {
+		margin-bottom: 20px;
+	}
+
+}
+
+@media (max-width: 460px) { 
+	.site-contacts {
+		width: 100%;
+		text-align: center;
+	}
+
+	.header-social {
+		float: left;
+	}
+}

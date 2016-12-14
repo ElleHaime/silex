@@ -1,0 +1,33 @@
+{% extends wrapper %}
+
+{% block content %}
+  <div class="main-content">
+	
+    <div class="container index-content">
+        <article class="col-xs-12 col-sm-9 col-ml-9 cpl-lg-9">
+        	<div class="one-posts">
+        		{% include navigation %}
+            
+            	<div class="posts-text">
+            		<p>bububu</p>
+		    	</div>
+		    </div>
+		    <div class="posts-line"></div>
+            <div class="posts-share">
+                <span>Share:</span>
+                <a style="cursor:pointer;" class="share-facebook" 
+                    	data-image-source=""
+                    	data-item-source="/about/corporate"
+                    	data-item-title="ОЦСП"
+                    	onClick="shareFb(this)">
+	             </a>
+	             <a href="http://vk.com/share.php?url={{ settings.host_name }}/about/corporate" target="_blank" class="share-twitter"></a>
+            </div>
+        </article>
+        
+		{% include sidepanel %}
+		
+    </div>
+</div>
+
+{% endblock %}

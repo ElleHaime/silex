@@ -1,0 +1,35 @@
+<aside class="col-xs-12 col-sm-3 col-ml-3 cpl-lg-3">
+    <div id="calendar"></div>
+    <!-- Responsive calendar - START -->
+    <div class="responsive-calendar">
+    <div class="controls">
+        <a class="pull-left" data-go="prev"><div class="btn btn-primary"></div></a>
+        <h4><span data-head-year></span> <span data-head-month></span></h4>
+        <a class="pull-right" data-go="next"><div class="btn btn-primary"></div></a>
+    </div>
+    
+    <div class="days" data-group="days">
+      
+    </div>
+  </div>
+  <!-- Responsive calendar - END -->
+  
+   <div class="next-trainings-list">
+   		{% if events is defined %}
+	        <div class="next-training-title">Ближайшие тренинги</div>
+	        {% for post in events %}
+	        	{% if loop.index < 3 %}
+			        <div class="next-training">
+			            <div class="training-link"><a href="{{ app.request.basepath }}/training/{{ post.url_name }}">{{ post.name }}</a></div>
+			            <div class="training-data">{{ post.start_date | date('d/m/Y') }}</div>
+			            <div class="training-time">{{ post.start_date | date('H:i') }}</div>
+			            <div class="posts-line"></div>
+			        </div>
+			    {% endif %}
+		    {% endfor %}
+	    {% endif %}
+    </div>
+    <a href="/training" class="all-training-link">все тренинги »</a>
+    <br />
+    <a href="/about/corporate" class="corporate-clients">корпоративным клиентам</a>
+</aside>

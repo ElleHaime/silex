@@ -1,0 +1,123 @@
+{% extends admin_wrapper  %}
+
+{% block content %}
+
+<div class="span9" id="content">
+    <div class="row-fluid">
+        <!-- block -->
+        <div class="block">
+            <div class="navbar navbar-inner block-header">
+                <div class="muted pull-left">Тренинги</div>
+            </div>
+            <div class="block-content collapse in">
+                <div class="span12">
+                    <form class="form-horizontal" method="post" id="formPost" name="formPost" action={{ path('admin.training.edit', {'postId': post.id }) }} enctype="multipart/form-data">
+                      <fieldset>
+                        <legend>
+                        	{% if postId is defined %}
+                        		Редактирование
+                        	{% else %}
+                        		Новый тренинг
+                        	{% endif %}
+                        </legend>
+                        <div class="control-group {% if errors.name is defined %}error{% endif %}" id="group-name">
+                          <label class="control-label" for="name">Название</label>
+                          <div class="controls">
+                            <input type="text" class="span6" id="name" name="formPost[name]" value="{{ post.name }}" maxlength=255>
+                            {% if errors.name is defined %}
+                            	<span class="help-inline">{{ errors.name }}</span>
+                            {% endif %}
+                          </div>
+                        </div>
+
+ 						<div class="control-group {% if errors.header_big is defined %}error{% endif %}" id="group-header_big">
+                          <label class="control-label" for="header_big">Хедер</label>
+                          <div class="controls">
+                          	<label class="uniform">
+                            	<input class="input-file uniform_on" type="file" name="header_big">
+                            	<span style="padding-left:20px; font-size:80%; color:grey;">Отресайзить картинку по ширине страницы (825 px) </span><input class="uniform_on" type="checkbox" id="news_post_resize_image" name="formNewsPost[resize_image]" value="1">
+                            	<p class="help-block" style="font-size:80%; color:grey;">Отображается на странице тренинга над заголовком</p>
+                            	{% if header_big is defined %}
+                            		<input type="hidden" id="news_post_logo" name="formPost[header_big]" value="{{ post.header_big }}">
+                            		<img src="/img/training/{{ post.url_name }}/{{ post.header_big }}" style="width:30%;">
+                            	{% endif %}
+                            </label>
+                          </div>
+                        </div>	
+                       
+                        <div class="control-group {% if errors.header_small is defined %}error{% endif %}" id="group-header_small">
+                          <label class="control-label" for="header_small">Миниатюра</label>
+                          <div class="controls">
+                          	<label class="uniform">
+                            	<input class="input-file uniform_on" type="file" name="header_small">
+                            	<p class="help-block" style="font-size:80%; color:grey;">Отображается на списке тренингов</p>
+                            	{% if header_small is defined %}
+                            		<input type="hidden" id="news_post_logo" name="formPost[header_small]" value="{{ post.header_small }}">
+                            		<img src="/img/training/{{ post.url_name }}/{{ post.header_small }}" style="width:30%;">
+                            	{% endif %}
+                            </label>
+                          </div>
+                        </div>					
+
+                        <div class="control-group {% if errors.url_name is defined %}error{% endif %}" id="group-title">
+                          <label class="control-label" for="title">URL</label>
+                          <div class="controls">
+                            <input type="text" class="span6" id="title" name="formPost[url_name]" value="{{ post.url_name }}" maxlength=255>
+                            <p class="help-block" style="font-size:80%; color:grey;">URL тренинга, например: http://ostc.com.ua/<b>bls</b> для тренинга BLS. По умолчанию -- ID тренинга<br />
+                            														Допускаются латинские буквы, цифры и дефисы</p>
+                            {% if errors.url_name is defined %}
+                            	<span class="help-inline">{{ errors.url_name }}</span>
+                            {% endif %}
+                          </div>
+                        </div>
+
+                        <div class="control-group {% if errors.intro is defined %}error{% endif %}" id="group-intro">
+                          <label class="control-label" for="intro">Краткое описание<span style="color:red; padding-left:3px;">*</span></label>
+                          <div class="controls"> 
+                               	<textarea id="news_post_intro" name="formPost[intro]" placeholder="Писать сюда" style="width:50%;height:80px;">{{ post.intro }}</textarea>
+                               	{% if errors.intro is defined %}
+                            		<span class="help-inline">{{ errors.intro }}</span>
+                            	{% endif %}
+                            	<p class="help-block" style="font-size:80%; color:grey;">Будет отображаться в общем списке</p>
+                            	<textarea id="news_post_intro_hidden" name="formPost[intro_hidden]" style="display:none;visibility:hidden;"></textarea>
+                          </div>
+                        </div>
+                        
+                        <div class="control-group {% if errors.description is defined %}error{% endif %}" id="group-body">
+                          <label class="control-label" for="intro">Полный текст</label>
+                          <div class="controls">
+                               	<textarea id="news_post_body" name="formPost[description]" placeholder="Писать сюда" style="width:80%;height:600px;overflow:scroll;">{{ post.description }}</textarea>
+                               	{% if errors.description is defined %}
+                            		<span class="help-inline">{{ errors.description }}</span>
+                            	{% endif %}
+								<textarea id="news_post_body_hidden" name="formPost[description_hidden]" style="display:none;visibility:hidden;"></textarea>                            	
+                          </div>
+                        </div>
+                        <div class="control-group" id="group-status">
+                          <label class="control-label" for="status">Опубликован</label>
+                          <div class="controls">
+                            <label class="uniform">
+                              <input class="uniform_on" type="checkbox" id="news_post_status" name="formPost[status]" value="1" {% if post.status == 1 %}checked{% endif %}>
+                            </label>
+                          </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                        	{% if post.id is defined %}
+								<input type="hidden" id="news_post_id" name="formPost[id]" value="{{ post.id }}">
+							{% endif %}
+							<div id="form-imageUploaded"></div>
+							<button type="submit" class="btn btn-primary">Сохранить</button>
+                          	<button type="reset" class="btn" id="cancel-to-list" data-url="{{ path('admin.training.list') }}">Отмена</button>
+                        </div>
+                      </fieldset>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <!-- /block -->
+    </div>
+</div>
+
+{% endblock %}

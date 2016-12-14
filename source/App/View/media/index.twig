@@ -1,0 +1,49 @@
+{% extends wrapper %}
+
+{% block content %}
+  <div class="main-content">
+	
+    <div class="container index-content">
+        <article class="col-xs-12 col-sm-12 col-ml-12 cpl-lg-12">
+       		{% include navigation %}
+            
+           	<div class="row">
+            	<a href="#" class="col-sm-12 col-lg-3"></a>
+            </div>
+			{% if media is not empty %}            
+				<div id="carousel-gallery" class="carousel slide gallery-slider media-slider" data-interval="100000" data-ride="carousel">
+				<!-- Indicators -->
+				
+					<!-- Wrapper for slides -->
+					<div class="carousel-inner" role="listbox">
+						<div class="item row active">
+							{% for item in media %}
+								{% if item.media_type == 'image' %}
+					            	<a href="/media/{{ item.event_id }}/photo" class="col-sm-12 col-lg-3 media-element gallery-folder">
+					            		<div class="positRelative">
+						            		<img src="/img/event/{{ item.event_id }}/{{ item.logo }}">
+						            		<div class="hiden-element">
+						            			<div class="folder-icon"></div>
+						            			<div class="folder-name">{{ item.name }}</div>
+						            			<div class="folder-count">({{ item.media_count }} photos)</div>
+						            		</div>
+					            		</div>
+					            	</a>
+					            {% endif %}
+				            {% endfor %}
+						</div>
+					</div>
+					
+					<!-- Controls -->
+					<div class="media-slider-control">
+						<span>click left/right  that to see all folder in gallery</span>
+						<a class="left carousel-control control-bottom" href="#carousel-gallery" role="button" data-slide="prev"></a>
+						<a class="right carousel-control control-bottom" href="#carousel-gallery" role="button" data-slide="next"></a>
+					</div>            
+				</div>
+			{% endif %}            
+        </article>
+    </div>
+</div>
+
+{% endblock %}

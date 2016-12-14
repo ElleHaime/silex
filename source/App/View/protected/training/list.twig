@@ -1,0 +1,88 @@
+{% extends admin_wrapper  %}
+
+{% block content %}
+<div class="span9" id="content">
+	<div class="row-fluid">
+	
+		<!-- alerts block --> 	
+			{% include admin_notifications %}
+	    <!--/alerts block-->
+	    	
+	    	<div class="row-fluid">
+                <!-- block -->
+                <div class="block">
+                    <div class="navbar navbar-inner block-header">
+                        <div class="muted pull-left">Тренинги</div>
+                        <div class="pull-right">
+                        	<a href="{{ path('admin.training.edit') }}"><span class="badge" style="cursor:pointer;">Добавить тренинг</span></a>
+                        </div>
+                    </div>
+                    <div class="block-content collapse in">
+                        <div class="span12">
+                        	<table cellpadding="0" cellspacing="0" border="0" class="table table-hover table-striped" id="entityFullList">
+				              <thead>
+				                <tr>
+				                  <th><input type="checkbox" name="masterCheck" id="masterCheck" class="checkbox"/></th>
+				                  <th data-dt-sortable="1"></th>
+				                  <th>Статус</th>
+				                  <th></th>
+				                  <th></th>
+				                  <th></th>
+				                  <th></th>
+				                </tr>
+				              </thead>
+				              <tbody>
+				              	{% for post in list %}
+					                <tr id="item_row-{{ post.id }}" data-id="{{ post.id}}">
+					                  <td><input type="checkbox" id={{ post.id }} data-id="{{ post.id }}" name="id"></td>
+					                  
+					                  <td>{{ post.name }}</td>
+
+					                  {% if post.status == 1%}
+					                  	<td style="color:green;" id="item_status-{{ post.id }}" data-id="{{ post.id }}">Опубликовано</td>
+					                  {% else %}
+					                  	<td style="color:grey;" id="item_status-{{ post.id }}" data-id="{{ post.id }}">Не опубликовано</td>
+					                  {% endif %}
+					                  
+					                  <td>
+									  	<a target="_blank" href="/media/{{ post.url_name }}">
+						                  	<button data-toggle="tooltip" title="Медиа" class="btn btn-mini">
+						                  	<i class=" icon-camera" style="cursor:pointer;"></i></button>
+					                  	</a>
+					                  </td>
+									  <td>
+									  	<a target="_blank" href="/training/{{ post.url_name }}">
+						                  	<button data-toggle="tooltip" title="Посмотреть на сайте" class="btn btn-mini">
+						                  	<i class=" icon-share-alt" style="cursor:pointer;"></i></button>
+					                  	</a>
+					                  </td>
+					                  <td>
+					                  	<a href="{{ path('admin.training.edit', {'postId': post.id }) }}"><button data-toggle="tooltip" title="Редактировать" class="btn btn-primary btn-mini">
+					                  	<i class="icon-edit icon-white" style="cursor:pointer;"></i></button></a>
+					                  </td>
+					                  <td>
+					                  	<button data-toggle="tooltip" title="Удалить" class="btn btn-danger btn-mini delete-entity-tbl" data-id="{{ post.id }}"  data-url="/admin/training/delete">
+					                  	<i class="icon-remove icon-white" style="cursor:pointer;"></i></button>
+					                  </td>
+					                  
+					                </tr>
+								{% endfor %}				               
+				              </tbody>
+				            </table>
+                        </div>
+                    </div>
+                    <div class="navbar navbar-inner block-header">
+                    	<div class="muted pull-left">
+                    		Отмеченные:
+							<span class="badge badge-success" style="cursor:pointer;" id="make_status_active" data-url="/admin/training/updateStatus">Опубликовать</span>
+	                    	<span class="badge" style="cursor:pointer;" id="make_status_inactive" data-url="/admin/training/updateStatus">Скрыть</span>
+	                    	<span class="badge badge-important" id="delete_entities" style="cursor:pointer;" data-url="/admin/training/delete">Удалить</span>
+	                    </div>
+                    </div>
+                </div>
+                <!-- /block -->
+            </div>
+		</div>
+    </div>
+</div>                    
+{% endblock %}
